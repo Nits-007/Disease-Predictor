@@ -1,0 +1,336 @@
+{%extends 'base.html'%} {%block title%}RECORD DETAIL{%endblock%} {%block css%}
+<style>
+  .logoimg {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-right: 5px;
+    /* position: absolute;
+            top:0%;
+            left:10%; */
+  }
+
+  .reportContainer {
+    width: 98vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sreport {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid red; */
+    margin-top: 30px;
+    border-radius: 5px;
+    box-shadow:
+      /* Front-facing shadow */
+      0 0 10px rgba(0, 0, 0, 0.2),
+      /* Top shadow */
+      0 -10px 10px -5px rgba(68, 67, 67, 0.1),
+      /* Right shadow */
+      10px 0 10px -5px rgba(68, 67, 67, 0.1),
+      /* Bottom shadow */
+      0 10px 10px -5px rgba(68, 67, 67, 0.1),
+      /* Left shadow */
+      -10px 0 10px -5px rgba(68, 67, 67, 0.1),
+      /* Inner shadow */
+      inset 0 0 10px rgba(68, 67, 67, 0.1);
+  }
+
+  h3,
+  p,
+  h4,
+  ul {
+    margin: 0;
+  }
+
+  .sheadCont {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .head1 {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .head2 {
+    margin-top: 20px;
+  }
+
+  .slogo .img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    object-fit: contain;
+  }
+
+  .nameContainer {
+    /* border: 1px solid blue; */
+    width: 80%;
+    /* margin-top: 30px; */
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+  }
+
+  .diseaseDes {
+    /* border:1px solid black; */
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .des {
+    width: 90%;
+  }
+
+  ul {
+    padding: 0;
+    margin-top: 5px;
+  }
+
+  .testTpes li {
+    display: inline-block;
+  }
+
+  .test {
+    padding-left: 3px;
+    margin-right: 10px;
+    position: relative;
+    left: 15%;
+    margin-right: 30px;
+    padding-left: 5px;
+  }
+
+  .test::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: black;
+    left: -22%;
+    top: 22%;
+  }
+
+  button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 40px;
+    border-radius: 5px;
+    background-color: rgb(180, 242, 221);
+    transition: all 0.3s ease-in-out;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+    box-shadow:
+      /* Front-facing shadow */
+      0 0 10px rgba(0, 0, 0, 0.2),
+      /* Top shadow */
+      0 -10px 10px -5px rgba(68, 67, 67, 0.1),
+      /* Right shadow */
+      10px 0 10px -5px rgba(68, 67, 67, 0.1),
+      /* Bottom shadow */
+      0 10px 10px -5px rgba(68, 67, 67, 0.1),
+      /* Left shadow */
+      -10px 0 10px -5px rgba(68, 67, 67, 0.1),
+      /* Inner shadow */
+      inset 0 0 10px rgba(68, 67, 67, 0.1);
+  }
+
+  .history {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    /* border: 1px solid red; */
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    align-items: center;
+    box-shadow:
+      /* Front-facing shadow */
+      0 0 10px rgba(0, 0, 0, 0.2),
+      /* Top shadow */
+      0 -10px 10px -5px rgba(68, 67, 67, 0.1),
+      /* Right shadow */
+      10px 0 10px -5px rgba(68, 67, 67, 0.1),
+      /* Bottom shadow */
+      0 10px 10px -5px rgba(68, 67, 67, 0.1),
+      /* Left shadow */
+      -10px 0 10px -5px rgba(68, 67, 67, 0.1),
+      /* Inner shadow */
+      inset 0 0 10px rgba(68, 67, 67, 0.1);
+    border-radius: 5px;
+  }
+
+  ul {
+    padding: 0;
+    margin-top: 5px;
+  }
+
+  li {
+    display: inline-block;
+  }
+
+  .test {
+    padding-left: 3px;
+    margin-right: 10px;
+    position: relative;
+    left: 15%;
+    margin-right: 30px;
+    padding-left: 5px;
+  }
+
+  .test::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: black;
+    left: -22%;
+    top: 22%;
+  }
+
+  @media (max-width:850px) {
+    .sreport {
+      width: 500px;
+    }
+
+    h1 {
+      font-size: 15px;
+    }
+
+    h3,
+    h4 {
+      font-size: 10px;
+    }
+
+    p {
+      font-size: 8px;
+    }
+
+    .t {
+      font-size: 5px;
+    }
+
+  }
+   @media (max-width:850px) {
+        .text{
+          font-size: 8px;
+        }
+          .text::before {
+              content: "";
+              width: 5px;
+              height: 5px;
+              border-radius: 50%;
+              position: absolute;
+              background-color: black;
+              left: -22%;
+              top: 22%;
+          }
+      }
+</style>
+{%endblock%} {%block body%}
+<div class="reportContainer">
+  <div class="sreport">
+    <div class="sheadCont">
+      <div class="head1">
+        <div class="slogo">
+          <img class="img"
+            src="https://image.similarpng.com/very-thumbnail/2022/01/Medical-health-logo-design-on-transparent-background-PNG.png"
+            alt="" />
+        </div>
+        <div class="sheading">
+          <h2>Patient History</h2>
+        </div>
+      </div>
+    </div>
+    <div class="nameContainer" style="margin-top: 30px">
+      <div class="name" style="width: 40%">
+        <h3>Name : {{patient.name}}</h3>
+      </div>
+      <div class="age" style="width: 30%">
+        <h3>Age : {{patient.age}}</h3>
+      </div>
+      <div class="sex">
+        <h3>Sex : {{patient.gender}}</h3>
+      </div>
+    </div>
+    <div class="nameContainer">
+      <div class="dummy" style="width: 40%">
+        <h3>Height: {{patient.height}} cm</h3>
+      </div>
+      <div class="dummy" style="width: 30%">
+        <h3>Weight : {{patient.weight}}</h3>
+      </div>
+    </div>
+    <div class="nameContainer">
+      <div class="dummy" style="width: 40%">
+        <h3>Blood Group : {{patient.blood_group}}</h3>
+      </div>
+      <div class="dummy" style="width: 30%">
+        <h3>BP : {{patient.blood_pressure}} mm Hg</h3>
+      </div>
+      <div class="dummy">
+        <h3>City : {{patient.city}}</h3>
+      </div>
+    </div>
+    <div class="nameContainer">
+      <div class="dummy" style="width: 40%">
+        <h3>
+          Address :
+          <span style="font-size: 12px">
+            {{patient.address}}
+          </span>
+        </h3>
+      </div>
+      <div class="dummy" style="width: 30%">
+        <h3>
+          Email:<span style="font-size: 12px"> {{pateint.email}} </span>
+        </h3>
+      </div>
+      <div class="dummy">
+        <h3>phone No :<span style="font-size: 12px">{{patient.phone}}</span></h3>
+      </div>
+    </div>
+    {% for key,value in patient.disease.items%}
+    <div class="history" style="margin-top: 15px">
+      <div class="date">
+        <h3>{{key}}</h3>
+      </div>
+      <h3>Patient symptoms :</h3>
+      <div class="symptom">
+        <ul>
+          {% for v in value.0%}
+          <li>
+            <h4 class="test">{{v}}</h4>
+          </li>
+          {%endfor%}
+        </ul>
+      </div>
+      <h3>Patient Disease :</h3>
+      <div class="disease">
+        <ul>
+          {% for disease in value.1 %}
+          <li>
+            <h4 class="test">{{disease}}</h4>
+          </li>
+          {%endfor%}
+        </ul>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+</div>
+{%endblock%}
+{%block js%}
+{%endblock%}

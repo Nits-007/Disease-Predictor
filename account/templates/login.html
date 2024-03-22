@@ -1,0 +1,128 @@
+{%extends 'base.html'%}
+{%block title%}LOGIN{%endblock%}
+{%block css%}
+<style>
+     body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1625134673337-519d4d10b313?q=80&w=1838&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+        
+        .login-container {
+            background-color: #175656cc;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            height: 50vh;
+            width: 650px;
+            margin-left: 450px;
+            margin-top: 90px;
+            box-shadow: 
+              /* Front-facing shadow */
+              0 0 10px rgba(6, 49, 159, 0.2),
+              /* Top shadow */
+              0 -10px 10px -5px rgba(236, 2, 2, 0.1),
+              /* Right shadow */
+              10px 0 10px -5px rgba(68, 67, 67, 0.1),
+              /* Bottom shadow */
+              0 10px 10px -5px rgba(234, 6, 6, 0.1),
+              /* Left shadow */
+              -10px 0 10px -5px rgba(245, 1, 1, 0.1),
+              /* Inner shadow */
+              inset 0 0 10px rgba(241, 6, 6, 0.1);
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            margin-top: -100px;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+        
+        input[type="email"],
+        input[type="password"] {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 20px;
+            width: 350px;
+            background-color: rgb(11, 190, 190);
+        }
+        
+        h2 {
+            font-size: 40px;
+            text-decoration: underline;
+            color: rgb(255, 248, 240);
+        }
+        
+        button {
+            padding: 15px;
+            background-color: #2789a1;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            border-radius: 10px;
+            height: 50px;
+            width: 150px;
+            margin-left: 100px;
+        }
+        
+        button:hover {
+            background-color: #1ca9d0;
+        }
+        
+        
+        @media screen and (max-width: 600px) {
+            .login-container {
+                width: 90%;
+                margin: 50px auto;
+            }
+            
+            input[type="email"],
+            input[type="password"] {
+                width: calc(100% - 20px);
+            }
+            
+            button {
+                width: calc(100% - 20px);
+                margin-left: 0;
+            }
+        }
+</style>
+{%endblock%}
+{%block body%}
+<div class="login-container">
+    <form action="{% url 'users:login' %}" method="post">
+        {% csrf_token %}
+        <h2>LOGIN</h2>
+        <div class="input-group">
+            <label for="email"></label>
+            <input type="email" id="email" name="email" placeholder="Enter Email" required>
+        </div>
+        <div class="input-group">
+            <label for="password"></label>
+            <input type="password" id="password" placeholder="Enter Password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</div>
+{%endblock%}
+{%block js%}
+{%endblock%}

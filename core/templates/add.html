@@ -1,0 +1,158 @@
+{%extends 'base.html'%} {%block title%}ADD DISEASES{%endblock%} {%block css%}
+ <style>
+        *{
+            margin: 0%;
+            padding: 0%;
+        }
+        .formContaier{
+            width:1400px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        @media (max-width:1140px) {
+            .scont{
+                font-size: 10px;
+            }
+            .formContaier{
+                width: 99vw;
+            }
+            .snavbar{
+                width: 99vw;
+            }
+        }
+        @media (max-width:800px) {
+            .formContaier{
+                width: 800px;
+            }
+            .snavbar{
+                width: 800px;
+            }
+        }
+        @media (max-width:500px) {
+            .formContaier{
+                width: 99vw;
+            }
+            .snavbar{
+                width: 99vw;
+            }
+            .fC{
+                width: 90vw;
+            }
+        }
+            
+        @media (max-width:450px) {
+            .formContaier{
+                width: 99vw;
+            }
+            .snavbar{
+                width: 99vw;
+            }
+            .fC{
+                width: 80vw;
+            }
+            
+        }
+        @media (max-width:360px) {
+            .formContaier{
+                width: 360px;
+            }
+            .fC{
+                width: 300px;
+            }
+            .snavbar{
+                width: 360px;
+            }
+        }
+        .fC{
+            width:400px;
+            margin-top:20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+         label{
+            align-self: flex-start;
+        }
+        .sform{
+            /* border: 1px solid grey; */
+            padding: 50px;
+            border-radius: 5px;
+            box-shadow: 
+            /* Front-facing shadow */
+            0 0 10px rgba(0, 0, 0, 0.2),
+            /* Top shadow */
+            0 -10px 10px -5px rgba(68, 67, 67, 0.1),
+            /* Right shadow */
+            10px 0 10px -5px rgba(68, 67, 67, 0.1),
+            /* Bottom shadow */
+            0 10px 10px -5px rgba(68, 67, 67, 0.1),
+            /* Left shadow */
+            -10px 0 10px -5px rgba(68, 67, 67, 0.1),
+            /* Inner shadow */
+            inset 0 0 10px rgba(68, 67, 67, 0.1);
+            margin: 20px 0;
+        }
+        .cont{
+            padding-top: 15px;
+        }
+        .text{
+            font-size:20px ;
+            font-weight: bold;
+        }
+         button{
+                border-radius: 5px;
+                margin-top: 9px;
+                padding: 10px;
+                width:120px;
+                border: #eae9e9;
+                background-color: rgb(188, 243, 225);
+                transition: all 0.3s ease-in-out;
+            }
+
+        button:hover{
+                transform: scale(1.1)
+            }
+    </style>
+{%endblock%}
+{%block body%}
+     <div class="formContaier">
+        <di class="fC">
+            <h2 style="margin-top: 15px;">Enter Disease Information</h2>
+            <form method="post" class="sform">
+                {% csrf_token %}
+                <div class="cont">
+                    <label for="id_name"><span class="text">Disease Name:</span></label><br>
+                    <input type="text" id="id_name" name="disease"><br>
+                </div>
+                
+                <div class="cont">
+                    <label for="id_symptoms"><span class="text">Symptoms:</span></label><br>
+                    <textarea id="id_symptoms" name="symptoms" rows="4" cols="50"></textarea><br>
+                </div>
+                <div class="cont">
+                    <label for="id_description"><span class="text">Description:</span></label><br>
+                    <textarea id="id_description" name="description" rows="4" cols="50"></textarea><br>
+                </div>
+                <div class="cont">
+                    <label for="id_precautions"><span class="text">Precautions:</span></label><br>
+                    <textarea id="id_precautions" name="precautions" rows="4" cols="50"></textarea><br>
+
+                </div>
+                <div class="cont">
+                    <label for="id_remedy"><span class="text">Remedy:</span></label><br>
+                    <textarea id="id_remedy" name="remedy" rows="4" cols="50"></textarea><br>
+                </div>
+                <div class="cont">
+                    <label for="id_tests"><span class="text">Test:</span></label><br>
+                    <textarea id="id_remedy" name="test" rows="4" cols="50"></textarea><br>
+                </div>
+                
+                <button type="submit" class="">Submit</button>
+            </form>
+        </div>
+       
+    </div>
+{%endblock%}
+{%block js%}
+{%endblock%}

@@ -1,0 +1,175 @@
+{%extends 'base.html'%} {%block title%}DISEASES DETAIL{%endblock%} {%block css%}
+ <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #2a5e5a;
+            background-image: url('https://images.unsplash.com/photo-1625134673337-519d4d10b313?q=80&w=1838&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+      margin-top: 80px;
+      
+      width: 90%; /* Changed width for mobile screens */
+      border-radius: 10px;
+      background-color: #eae9e9;
+      box-shadow: 
+      /* Front-facing shadow */
+      0 0 10px hsla(0, 25%, 98%, 0.95),
+      /* Top shadow */
+      0 -10px 10px -5px hsla(0, 25%, 98%, 0.95),
+      /* Right shadow */
+      10px 0 10px -5px hsla(0, 25%, 98%, 0.95),
+      /* Bottom shadow */
+      0 10px 10px -5px hsla(0, 25%, 98%, 0.95),
+      /* Left shadow */
+      -10px 0 10px -5px hsla(0, 25%, 98%, 0.95),
+      /* Inner shadow */
+      inset 0 0 10px hsla(0, 25%, 98%, 0.95);
+    }
+    
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+      color: rgb(14, 10, 10);
+      margin: 0%;
+      font-size: 50px;
+    }
+    
+    .p1, .p2, .p3, .p4, .p5 {
+      color: rgb(12, 12, 8);
+      box-shadow: 
+        /* Front-facing shadow */
+        0 0 10px hsla(0, 25%, 98%, 0.95),
+        /* Top shadow */
+        0 -10px 10px -5px hsla(0, 25%, 98%, 0.95),
+        /* Right shadow */
+        10px 0 10px -5px hsla(0, 25%, 98%, 0.95),
+        /* Bottom shadow */
+        0 10px 10px -5px hsla(0, 25%, 98%, 0.95),
+        /* Left shadow */
+        -10px 0 10px -5px hsla(0, 25%, 98%, 0.95),
+        /* Inner shadow */
+        inset 0 0 10px hsla(0, 25%, 98%, 0.95);
+        width: 300px;
+    }
+    
+    .heading {
+      box-shadow: 
+        /* Front-facing shadow */
+        0 0 10px hsla(0, 25%, 98%, 0.95),
+        /* Top shadow */
+        0 -10px 10px -5px hsla(0, 25%, 98%, 0.95),
+        /* Right shadow */
+        10px 0 10px -5px hsla(0, 25%, 98%, 0.95),
+        /* Bottom shadow */
+        0 10px 10px -5px hsla(0, 25%, 98%, 0.95),
+        /* Left shadow */
+        -10px 0 10px -5px hsla(0, 25%, 98%, 0.95),
+        /* Inner shadow */
+        inset 0 0 10px hsla(0, 25%, 98%, 0.95);
+      background-color: rgb(167, 80, 80);
+      border-radius: 10px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+    }
+    
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    li {
+      margin-bottom: 5px;
+    }
+    
+    @media screen and (max-width: 600px) {
+      
+      .container {
+        width: 90%;
+      }
+      
+      h1 {
+        font-size: 30px;
+      }
+      
+      .p1, .p2, .p3, .p4, .p5 {
+        width: 90%;
+      }
+    }
+    
+  </style>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h1>Disease Information</h1>
+    <div id="diseaseDescription">
+        <div class="p4">
+            <h2>1.Disease Description</h2>
+        </div>
+        <p id="diseaseDescriptionText">{{descriptions}}</p>
+    </div>
+
+
+    <div id="precautions">
+        <div class="p3">
+            <h2>2.Precautions</h2>
+        </div>
+        <ul id="precautionsList">
+            {% for precaution in precautions%}
+            <li>{{precaution}}</li>
+            {%endfor%}
+        </ul>
+    </div>
+
+
+    <div id="homeRemedy">
+        <div class="p2">
+            <h2>3.Home Remedy</h2>
+        </div>
+        <ul id="homeRemedyText">
+        {% for remedy in remedies%}
+        <li>{{remedy}}</li>
+        {%endfor%}
+        </ul>
+    </div>
+
+
+    <div id="testsRequired">
+        <div class="p1">
+            <h2>4.Tests Required</h2>
+        </div>
+
+        <ul id="testsRequiredList">
+            {% for test in tests %}
+            <li>{{test}}</li>
+            {%endfor%}
+        </ul>
+    </div>
+    <div id="doctor recommendation">
+         {% if doctors%}
+        <div class="p5">
+            <h2>5.Doctor recommendation</h2>
+        </div>
+        <p id="doctor recommendation">
+            {% for doctor in doctors%}
+            <li>{{doctor.name}} near {{doctor.address}}</li>
+            {%endfor%}
+        </p>
+        {%else%}
+        <div class="p2">
+            <h2>No doctor found</h2>
+        </div>
+        {%endif%}
+    </div>
+
+</div>
+{%endblock%}
+{%block js%}
+{%endblock%}

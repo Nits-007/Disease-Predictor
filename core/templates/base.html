@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>{% block title %}{% endblock %}</title>
+   <style>
+      body {
+        margin: 0%;
+        padding: 0%;
+      }
+      h1,
+      h3 {
+        padding: 0;
+        margin: 0;
+      }
+      h1 {
+        font-size: 50px;
+      }
+      a {
+        text-decoration: none;
+        text-underline-offset: none;
+        color: black;
+      }
+      .snavbar {
+        height: 100px;
+        padding: 0%;
+        margin: 0%;
+        background-color: #eae9e9;
+        position: sticky;
+        top: 0%;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        position: relative;
+      }
+      .snavHead {
+        display: flex;
+        align-items: center;
+      }
+      .ncontent {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+      .snavContent {
+        position: relative;
+        width: 30%;
+        display: flex;
+        justify-content: space-around;
+      }
+      .scont {
+        /* border: 1px solid green; */
+        position: relative;
+      }
+      .scont::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 1px solid rgb(213, 16, 16);
+        transition: all 0.5s ease-in-out;
+        opacity: 0;
+      }
+      @media (max-width:640){
+        .snavContent{
+          width: 50%;
+        }
+        .scont:hover::after{
+      
+        transform: translateX(-50%) scaleX(20);
+        }
+      }
+
+      .scont:hover::after {
+        opacity: 1;
+        /* width: 100%; Set the width to 100% */
+        transform: translateX(-50%) scaleX(40);
+      }
+      .logoimg {
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+        object-fit: contain;
+        margin-right: 5px;
+        /* position: absolute;
+            top:0%;
+            left:10%; */
+      }
+       @media (max-width:1140px) {
+            .scont{
+                font-size: 10px;
+            }
+            .formContaier{
+                width: 99vw;
+            }
+            .snavbar{
+                width: 99vw;
+            }
+        }
+        @media (max-width:800px) {
+            .formContaier{
+                width: 800px;
+            }
+            .snavbar{
+                width: 800px;
+            }
+        }
+        @media (max-width:500px) {
+            .formContaier{
+                width: 99vw;
+            }
+            .snavbar{
+                width: 99vw;
+            }
+            .fC{
+                width: 90vw;
+            }
+        }
+            
+        @media (max-width:450px) {
+            .formContaier{
+                width: 99vw;
+            }
+            .snavbar{
+                width: 99vw;
+            }
+            .fC{
+                width: 80vw;
+            }
+            
+        }
+        @media (max-width:360px) {
+            .formContaier{
+                width: 360px;
+            }
+            .fC{
+                width: 300px;
+            }
+            .snavbar{
+                width: 360px;
+            }
+        }
+    </style>{% block css %}{%endblock%}
+</head>
+<body style="background-color: #fdf2f2;">
+    <div class="snavbar">
+        <div class="snavHead">
+            <img class="logoimg"
+          src="https://image.similarpng.com/very-thumbnail/2022/01/Medical-health-logo-design-on-transparent-background-PNG.png"
+          alt=""
+        />
+            <h1> MEDIFY </h1>
+        </div>
+        <div class="ncontent">
+            
+            <div class="snavContent">
+                {% if user.is_authenticated %}
+                <a href="/" class="scont">
+                    <h3>HOME</h3>
+                </a>
+                <a href="{% url 'core:record' %}" class="scont">
+                    <h3>RECORD</h3>
+                </a>
+                <a href="{% url 'users:logout' %}" class="scont">
+                    <h3>LOGOUT</h3>
+                </a>
+                    {%if user.is_superuser%}
+                <a href="{% url 'core:add' %}" class="scont">
+                    <h3>ADD DISEASE</h3>
+                </a>
+                    {%endif%}
+                {%else%}
+                <a href="{% url 'users:login' %}" class="scont">
+                    <h3>LOGIN  </h3>
+                </a>
+                {%endif%}
+            </div>
+    
+        </div>
+    </div>
+    {% block body %}{%endblock%}
+    <script></script>{%block js %}{%endblock%}
+</body>
+

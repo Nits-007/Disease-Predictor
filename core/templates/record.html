@@ -1,0 +1,130 @@
+{%extends 'base.html'%}
+{%block title%}RECORD{%endblock%}
+{%block css%}
+<style>
+    .container {
+            width: 800px;
+            height: 80vh;
+            padding: 20px;
+            background-color: #c5e3e7;
+            margin: 0 auto;
+        }
+        
+        .container h1 {
+            text-align: center;
+            color: #37a08f;
+            text-decoration: underline;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #37a08f;
+            color: white;
+        }
+        .bb{
+            display: flex;
+            text-align: center;
+        }
+
+       #searchName{
+            height: 48px;
+            width:250px;
+            border-radius: 5px;
+            background-color: #acb2ae95;
+            margin-right: 9px;
+            color: hsl(180, 14%, 3%);
+       }
+       #searchDate{
+        height: 48px;
+        width:250px;
+        border-radius: 5px;
+        background-color: #acb2ae95;
+        margin-right: 9px;
+   }
+   .search-button{
+    height: 48px;
+        width:150px;
+        border-radius: 5px;
+        background-color: hsl(172, 96%, 48%);
+        margin-right: 9px;
+        cursor: pointer;
+   }
+   .search-button:hover{
+    background-color: #13beb0;
+   }
+
+   /* Styling for the Details button */
+   .details-button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .details-button:hover {
+        background-color: #45a049; /* Darker Green */
+    }
+      @media screen and (max-width: 768px) {
+        .container {
+            width: 90%;
+        }
+
+        #searchName, #searchDate, .search-button {
+            width: 100%;
+            margin-right: 0;
+        }
+    }
+</style>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h2>Patient History</h2>
+    <form method="GET" class="bb">
+        <input type="text" name="search" id="searchName" placeholder="Search patients" value="{% if search %}{{ search }}{% endif %}">
+        <input type="date" name="date_search" placeholder="Search patients by date" id="searchDate"
+            value="{% if date_search %}{{ date_search }}{% endif %}">
+        <button type="submit" class="search-button">Search</button>
+        <button type="submit" class="search-button">Reset</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Serial No.</th>
+                <th>Name</th>
+                <th>Date of Appointment</th>
+                <th>Option</th>
+            </tr>
+        </thead>
+        <tbody id="patientHistory">
+            {% for patient in patients %}
+            <tr>
+                <th>{{forloop.counter}}.</th>
+                <th>{{patient.name}}</th>
+                <th>{{patient.date_updated}}</th>
+                <th><a href="{%url 'core:record_detail' id=patient.pk %}">Detail</a></th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{%endblock%}
+{%block js%}
+<script></script>
+{%endblock%}

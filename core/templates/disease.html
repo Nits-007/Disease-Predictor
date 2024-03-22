@@ -1,0 +1,212 @@
+{%extends 'base.html'%} {%block title%}DISEASES{%endblock%} {%block css%}
+<style>
+    :root {
+        --main-width: 459px;
+    }
+
+    .scontainer {
+        /* border:1px solid blue; */
+        width: 100%;
+        height: 600px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .diseases {
+        border: 1px solid rgb(226, 255, 226);
+        /* position: relative; */
+        width: 40%;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow:
+            /* Front-facing shadow */
+            0 0 10px rgba(0, 0, 0, 0.2),
+            /* Top shadow */
+            0 -10px 10px -5px rgba(68, 67, 67, 0.1),
+            /* Right shadow */
+            10px 0 10px -5px rgba(68, 67, 67, 0.1),
+            /* Bottom shadow */
+            0 10px 10px -5px rgba(68, 67, 67, 0.1),
+            /* Left shadow */
+            -10px 0 10px -5px rgba(68, 67, 67, 0.1),
+            /* Inner shadow */
+            inset 0 0 10px rgba(68, 67, 67, 0.1);
+    }
+
+    .diseaseContainer {
+        /* border: 1px solid violet; */
+        height: 30%;
+        width: 75%;
+        position: relative;
+    }
+
+    .diseaseContainer::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        display: block;
+        position: absolute;
+        /* border: 1px solid black; */
+        border-radius: 50%;
+        top: 13%;
+        left: -4%;
+        background-color: #007bff;
+    }
+
+    .disease {
+        /* border:1px solid black; */
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    .doctors {
+        /* border:1px solid yellow; */
+        width: 40%;
+        height: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .doctor {
+        /* border:1px solid purple; */
+        width: 459px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .doctor::before {
+        content: "";
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        top: 13%;
+        left: -4%;
+        background-color: #007bff;
+        margin-right: 10px;
+    }
+
+    .progress-bar {
+        /* border:1px solid yellow; */
+        color: red;
+        width: 0%;
+        height: 20px;
+        /* Adjust height as needed */
+        background-color: #e32e2e;
+        position: relative;
+        border-radius: 3px;
+        display: block;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .docContainer {
+        width: 90%;
+        height: 90%;
+        /* border: 1px solid red; */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .scontainer button {
+        border-radius: 5px;
+        margin-top: 9px;
+        padding: 8px;
+        border: #eae9e9;
+        background-color: rgb(188, 243, 225);
+        transition: all 0.3s ease-in-out;
+        margin-right: 5px;
+    }
+
+    .scontainer button:hover {
+        transform: scale(1.1)
+    }
+
+    .i-container {
+        display: flex;
+    }
+     @media (max-width:990px)
+            {
+                .diseases{
+                    width:60%;
+                }
+                h1{
+                    font-size: 35px;
+                }
+                h2{
+                    font-size: 18px;
+                }
+            }
+</style>
+{%endblock%} {%block body%}
+<div class="scontainer">
+    <h1 style="padding-bottom: 10px">Disease Predicted</h1>
+    <div class="diseases">
+        {%for key,value in result%}
+        <div class="diseaseContainer">
+            <form action="{% url 'core:detail' %}" method="post">
+                {% csrf_token %}
+                <div class="disease">
+                    <h2>{{key}} ->  {{value}}%</h2>
+                </div>
+                <div class="progress-bar">{{value}}</div>
+                <input type="hidden" name="disease" value="{{key}}">
+                <input type="hidden" name="patient" value="{{patient_id}}">
+                <div class="i-container">
+                    <button type="submit">Get Details</button>
+            </form>
+            <form action="{% url 'core:report' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="disease" value="{{key}}">
+                <input type="hidden" name="patient" value="{{patient_id}}">
+                <button type="submit">View Report
+                </button>
+            </form>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+{%endblock%}
+{%block js%}
+<script>
+    let progressBars = document.querySelectorAll('.progress-bar');
+
+    progressBars.forEach((progressBar) => {
+        let innerContent = parseInt(progressBar.textContent.trim()); // Get inner content and convert to integer
+        let backgroundColor = '';
+        let width = '';
+        let color = '';
+
+        if (innerContent < 20) {
+            backgroundColor = 'green'; // Example color for less than 20%
+            width = '20%';
+            color = 'green';
+        } else if (innerContent < 40) {
+            backgroundColor = 'yellow'; // Example color for less than 50%
+            width = '50%';
+            color = 'yellow'
+        } else if (innerContent < 60) {
+            backgroundColor = 'orange'; // Example color for less than 80%
+            width = '70%';
+            color = 'orange'
+        } else {
+            backgroundColor = 'red'; // Example color for 80% and above
+            width = '90%';
+            color = 'red';
+        }
+        progressBar.textContent = ""
+        progressBar.style.backgroundColor = backgroundColor;
+        progressBar.style.width = width;
+        progressBar.style.color = color;
+    });
+</script>
+{%endblock%}

@@ -1,0 +1,640 @@
+{%extends 'base.html'%} {%block title%}Symptoms{%endblock%} {%block css%}
+<style>
+  .scontainer {
+    width: 98vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .scardContainer {
+    width: 1200px;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    /* grid-template-columns:10% 1fr 1fr 1fr 1fr 10%;
+            grid-column-gap: 20px; */
+    padding-bottom: 50px;
+  }
+
+  .scard h2 {
+    margin: 0;
+  }
+
+  .scard {
+    border: 1px solid black;
+    width: 250px;
+    height: 200px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    transform: scale();
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: end;
+    position: relative;
+  }
+
+  .scard:hover {
+    transform: scale(1.1);
+    box-shadow:
+      /* Front-facing shadow */
+      0 0 10px rgba(0, 0, 0, 0.2),
+      /* Top shadow */
+      0 -10px 10px -5px rgba(68, 67, 67, 0.1),
+      /* Right shadow */
+      10px 0 10px -5px rgba(68, 67, 67, 0.1),
+      /* Bottom shadow */
+      0 10px 10px -5px rgba(68, 67, 67, 0.1),
+      /* Left shadow */
+      -10px 0 10px -5px rgba(68, 67, 67, 0.1),
+      /* Inner shadow */
+      inset 0 0 10px rgba(68, 67, 67, 0.1);
+    ;
+  }
+
+  .scard::after {
+    content: "";
+    display: block;
+    border: 1px solid green;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 16px;
+    position: absolute;
+    right: -4%;
+    top: -4%;
+    background-color: white;
+  }
+
+  /* .scard-1::after{
+            
+            
+            
+        } */
+  .checked::after {
+    content: "\2713";
+    background-color: green;
+    color: rgb(240, 246, 240);
+    text-align: center;
+    line-height: 20px;
+    font-size: 16px;
+  }
+
+  .scontent {
+    text-align: center;
+  }
+
+  .scard .img {
+    /* border: 1px solid red; */
+    height: 100px;
+    width: 106px;
+    object-fit: contain;
+    mix-blend-mode: color-burn;
+  }
+
+
+  @media (max-width:1360px) {
+    .scardContainer {
+      width: 900px;
+    }
+
+    .scard {
+      width: 200px;
+    }
+  }
+
+  @media (max-width:960px) {
+    .scardContainer {
+      width: 800px;
+    }
+
+    .scard {
+      width: 175px;
+    }
+  }
+
+  @media (max-width:780px) {
+    .scardContainer {
+      width: 500px;
+    }
+
+    .scard {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 10px;
+    }
+  }
+</style>
+<style>
+  .searchContent {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+  }
+
+  .searchContent>input {
+    padding: 10px;
+    width: 400px;
+  }
+
+  .options {
+    background-color: #eae9e9;
+    /* opacity: 0; */
+    margin-top: 20px;
+    height: 300px;
+    width: 400px;
+    /* border: 1px solid blue; */
+    overflow-y: scroll;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .ele {
+    /* border:1px solid red; */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+  }
+
+  .ele::before {
+    content: "";
+    display: block;
+    border: 1px solid green;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 16px;
+    position: relative;
+    left: -10px;
+
+  }
+
+  .eleChecked::before {
+    content: "\2713";
+    background-color: green;
+    color: rgb(240, 246, 240);
+    text-align: center;
+    line-height: 20px;
+    font-size: 16px;
+  }
+
+  .symptoms {
+    position: absolute;
+    /* border: 1px solid red; */
+    width: 400px;
+    transform: translate(-107%, 43%);
+    min-height: 300px;
+    display: inline-block;
+    z-index: 1;
+
+  }
+
+  .symptom {
+    height: 40px;
+    border: 1px solid rgb(0, 4, 1);
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(160, 215, 168);
+    display: inline-block;
+    position: relative;
+  }
+
+  .symptom::after {
+    content: "\2715";
+    font-weight: bolder;
+    color: rgb(232, 250, 232);
+    display: block;
+    border: 1px solid green;
+    background-color: green;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transform: translate(-32%, -38%);
+    z-index: 0;
+  }
+
+  .word {
+    position: absolute;
+    /* border: 1px solid red; */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    left: 0%;
+    top: 0%;
+    transform: translate(-34%, -32%);
+    z-index: 5;
+  }
+
+  .space {
+    height: 100px;
+    ;
+  }
+
+  .searchContent>button {
+    margin-top: 20px;
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  @media (max-width:1140px) {
+    .symptoms {
+      width: 280px;
+    }
+
+    .scont {
+      font-size: 10px;
+    }
+  }
+
+  @media (max-width:930px) {
+    .symptoms {
+      width: 300px;
+      background-color: rgba(195, 192, 192, 0.402);
+      /* border: 1px solid red; */
+      top: 104%;
+      transform: translate(0, 0);
+
+    }
+  }
+</style>
+{%endblock%}
+{%block body%}
+<section>
+  <div class="space">
+
+  </div>
+  <div class="scontainer">
+
+    <div class="scardContainer">
+      <!-- <div class="empty-1"></div> -->
+      <div class="scard">
+        <div class="scontent">
+          <img class="img" src="https://cdn-icons-png.flaticon.com/512/4843/4843981.png" alt="">
+          <h2>headache</h2>
+        </div>
+      </div>
+      <div class="scard scard-1">
+        <div class="scontent">
+          <img class="img"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgCCE4RKRGGNM7tXSuEEWY2j9RWtOC5l01OQ&usqp=CAU"
+            alt="">
+          <h2>stomach pain</h2>
+        </div>
+      </div>
+      <div class="scard">
+        <div class="scontent">
+          <img src="https://static.thenounproject.com/png/3625719-200.png" alt="" class="img">
+          <h2>skin rash</h2>
+        </div>
+      </div>
+      <div class="scard">
+        <div class="scontent">
+          <img class="img" src="https://cdn-icons-png.flaticon.com/512/3781/3781946.png" alt="">
+          <h2>mild fever</h2>
+        </div>
+      </div>
+      <!-- <div class="empty-2"></div> -->
+    </div>
+
+  </div>
+
+  <style>
+    .searchContent {
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      position: relative;
+    }
+
+    .searchContent>input {
+      padding: 10px;
+      width: 400px;
+    }
+
+    .options {
+      background-color: #eae9e9;
+      /* opacity: 0; */
+      margin-top: 20px;
+      height: 300px;
+      width: 400px;
+      /* border: 1px solid blue; */
+      overflow-y: scroll;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .ele {
+      /* border:1px solid red; */
+      height: 40px;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+    }
+
+    .ele::before {
+      content: "";
+      display: block;
+      border: 1px solid green;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      text-align: center;
+      line-height: 20px;
+      font-size: 16px;
+      position: relative;
+      left: -10px;
+
+    }
+
+    .eleChecked::before {
+      content: "\2713";
+      background-color: green;
+      color: rgb(240, 246, 240);
+      text-align: center;
+      line-height: 20px;
+      font-size: 16px;
+    }
+
+    .symptoms {
+      position: absolute;
+      /* border: 1px solid red; */
+      width: 400px;
+      transform: translate(-107%, 43%);
+      min-height: 300px;
+      display: inline-block;
+      z-index: 1;
+
+    }
+
+    .symptom {
+      height: 40px;
+      border: 1px solid rgb(0, 4, 1);
+      border-radius: 10px;
+      text-align: center;
+      padding-top: 8px;
+      padding-left: 8px;
+      padding-right: 8px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      background-color: rgb(160, 215, 168);
+      display: inline-block;
+      position: relative;
+    }
+
+    .symptom::after {
+      content: "\2715";
+      font-weight: bolder;
+      color: rgb(232, 250, 232);
+      display: block;
+      border: 1px solid green;
+      background-color: green;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      transform: translate(-32%, -38%);
+      z-index: 0;
+    }
+
+    .word {
+      position: absolute;
+      /* border: 1px solid red; */
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      left: 0%;
+      top: 0%;
+      transform: translate(-34%, -32%);
+      z-index: 5;
+    }
+
+    .space {
+      height: 100px;
+      ;
+    }
+
+    .searchContent>button {
+      margin-top: 20px;
+      width: 150px;
+      height: 40px;
+      border-radius: 10px;
+    }
+
+    @media (max-width:1140px) {
+      .symptoms {
+        width: 280px;
+      }
+
+      .scont {
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width:930px) {
+      .symptoms {
+        width: 300px;
+        background-color: rgba(195, 192, 192, 0.402);
+        /* border: 1px solid red; */
+        top: 104%;
+        transform: translate(0, 0);
+
+      }
+    }
+  </style>
+
+  <div class="searchContent">
+    <div class="symptoms">
+    </div>
+    <h2>other symptoms</h2>
+    <div class="options">
+      {%for symptom in all_symptoms%}
+      <div class="ele" onclick="moveElement(this)">{{symptom}}</div>
+      {%endfor%}
+    </div>
+    <form action="{% url 'core:disease' %}" method="post" id="patientForm">
+      {% csrf_token %}
+      <input
+        type="hidden"
+        id="patientId"
+        name="patient_id"
+        value="{{ patient.id }}"
+      />
+       <input type="hidden" id="additionalData" name="additional_data" />
+      <button onclick="submitForm()">Submit</button>
+    </form>
+  </div>
+
+  <div class="space">
+
+  </div>
+
+</section>
+{%endblock%}
+{%block js%}
+<script>
+
+
+
+  var options = document.querySelector('.options');
+  var input = document.querySelector('.searchContent input');
+  var symptoms = document.querySelector('.symptoms')
+  console.log(symptoms.innerHTML)
+  // Select all elements with class 'scard'
+  const scards = document.querySelectorAll('.scard');
+  const ele = document.querySelectorAll('.ele');
+  let syms = document.querySelectorAll('.symptom')
+  let sahil = [];
+
+  function deleteSahil(ele) {
+    for (let i = 0; i < sahil.length; i++) {
+      if (sahil[i].trim() === ele.trim()) {
+        console.log(sahil[i].trim(), "--", ele.trim())
+        sahil.splice(i, 1)
+        break;
+      }
+    }
+  }
+
+
+  scards.forEach((scard) => {
+    scard.addEventListener('click', () => {
+      const h1Value = scard.querySelector('h2').textContent; // Extract the text content of the <h1> element
+      if (scard.classList.contains('checked')) {
+        let matchedSymptom = null; // Store a reference to the matched symptom element
+        syms.forEach((sym) => {
+          let letterHTML = sym.querySelector('.letter').innerHTML.trim();
+          if (letterHTML === h1Value.trim()) {
+            deleteSahil(h1Value)
+            console.log('yes')
+            matchedSymptom = sym; // Store the matched symptom element
+          }
+        });
+        if (matchedSymptom !== null) {
+          matchedSymptom.parentNode.removeChild(matchedSymptom); // Remove the matched symptom
+        }
+      }
+      scard.classList.toggle('checked');
+      if (scard.classList.contains('checked')) {
+
+        const cont = `<div class="symptom">  <span class="letter">${h1Value} </span> <span class="word" onclick="deleteParent(this)"> </span></div>`;
+        symptoms.innerHTML += cont; // Append the extracted h1Value to symptoms.innerHTML
+        sahil.push(h1Value.trim())
+        syms = document.querySelectorAll('.symptom');
+      }
+    });
+  });
+
+
+
+
+  // console.log(syms)
+  ele.forEach((el) => {
+    el.addEventListener('click', () => {
+      let matchedSymptom = null; // Store a reference to the matched symptom element
+      if (el.classList.contains('eleChecked')) {
+        syms.forEach((sym) => {
+          let letterHTML = sym.querySelector('.letter').innerHTML.trim();
+          if (letterHTML === el.innerHTML.trim()) {
+            deleteSahil(letterHTML)
+            console.log('yes')
+            matchedSymptom = sym; // Store the matched symptom element
+          }
+        });
+        if (matchedSymptom !== null) {
+          matchedSymptom.parentNode.removeChild(matchedSymptom); // Remove the matched symptom
+        }
+      }
+      el.classList.toggle('eleChecked');
+      if (el.classList.contains('eleChecked')) {
+        const cont = `<div class="symptom"> <span class="letter"> ${el.innerHTML} </span> <span class="word" onclick="deleteParent(this)"> </span></div>`;
+        symptoms.innerHTML += cont;
+        // Re-query for all .symptom elements after adding new HTML
+        sahil.push(el.innerHTML.trim())
+        syms = document.querySelectorAll('.symptom');
+      }
+    });
+  });
+
+  const word = document.querySelector('.word');
+
+
+
+  function deleteParent(wordElement) {
+    const symptom = wordElement.closest('.symptom');
+
+    let letterHTML = symptom.querySelector('.letter').innerHTML;
+    letterHTML = letterHTML.trim();
+
+    ele.forEach((el) => {
+      const elTextContent = el.textContent.trim();
+
+      // Compare the text content of el with letterHTML
+      if (elTextContent === letterHTML) {
+        // Remove the 'eleChecked' class if it exists
+        deleteSahil(letterHTML)
+        if (el.classList.contains('eleChecked')) {
+          el.classList.remove('eleChecked');
+        }
+      }
+    });
+
+    scards.forEach((scard) => {
+      let h1Value = scard.querySelector('h2').textContent;
+      h1Value = h1Value.trim()
+      if (h1Value === letterHTML) {
+        deleteSahil(h1Value)
+        if (scard.classList.contains('checked'))
+          scard.classList.remove('checked')
+      }
+    })
+
+    symptom.parentNode.removeChild(symptom);
+  }
+
+  function moveElement(element) {
+    if (!element.classList.contains('eleChecked')) {
+
+      element.parentNode.removeChild(element);
+      document.querySelector('.options').insertBefore(element, document.querySelector('.options').firstChild);
+    }
+    else {
+      element.parentNode.removeChild(element);
+      document.querySelector('.options').insertBefore(element, document.querySelector('.options').lastChild);
+    }
+  }
+  function submitForm() {
+    var patientId = document.getElementById("patientId").value;
+    console.log("Patient ID:", patientId);
+
+    // Assuming `sahil` is an array
+    var additionalData = JSON.stringify(sahil); // Convert array to JSON string
+    console.log("Additional Data:", additionalData);
+
+    // Set the value of the hidden input field
+    document.getElementById("additionalData").value = additionalData;
+    // Submit the form
+    document.getElementById("patientForm").submit();
+  }
+</script>
+{%endblock%}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORT</title>
+</head>
+
+<body>
+    <style>
+        .reportContainer {
+            width: 98vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sreport {
+            width: 800px;
+            /* border: 1px solid red; */
+            margin-top: 10px;
+            border-radius: 5px;
+            box-shadow:
+                /* Front-facing shadow */
+                0 0 10px rgba(0, 0, 0, 0.2),
+                /* Top shadow */
+                0 -10px 10px -5px rgba(68, 67, 67, 0.1),
+                /* Right shadow */
+                10px 0 10px -5px rgba(68, 67, 67, 0.1),
+                /* Bottom shadow */
+                0 10px 10px -5px rgba(68, 67, 67, 0.1),
+                /* Left shadow */
+                -10px 0 10px -5px rgba(68, 67, 67, 0.1),
+                /* Inner shadow */
+                inset 0 0 10px rgba(68, 67, 67, 0.1);
+        }
+
+        h3,
+        p,
+        h4,
+        ul {
+            margin: 0;
+        }
+
+        .sheadCont {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .head1 {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .head2 {
+            margin-top: 20px;
+        }
+
+        .slogo .img {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+
+        .nameContainer {
+            /* border: 1px solid blue; */
+            /* margin-top: 30px; */
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+
+        .diseaseDes {
+            /* border:1px solid black; */
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .des {
+            width: 90%;
+        }
+
+        ul {
+            padding: 0;
+            margin-top: 5px;
+        }
+
+        .testTpes li {
+            display: inline-block;
+        }
+
+        .test {
+            padding-left: 3px;
+            margin-right: 10px;
+            position: relative;
+            left: 15%;
+            margin-right: 30px;
+            padding-left: 5px;
+        }
+
+        .test::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: absolute;
+            background-color: black;
+            left: -22%;
+            top: 22%;
+
+        }
+
+        button {
+            width: 200px;
+            padding: 15px;
+            margin-top: 40px;
+            border-radius: 5px;
+            background-color: rgb(180, 242, 221);
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow:
+                /* Front-facing shadow */
+                0 0 10px rgba(0, 0, 0, 0.2),
+                /* Top shadow */
+                0 -10px 10px -5px rgba(68, 67, 67, 0.1),
+                /* Right shadow */
+                10px 0 10px -5px rgba(68, 67, 67, 0.1),
+                /* Bottom shadow */
+                0 10px 10px -5px rgba(68, 67, 67, 0.1),
+                /* Left shadow */
+                -10px 0 10px -5px rgba(68, 67, 67, 0.1),
+                /* Inner shadow */
+                inset 0 0 10px rgba(68, 67, 67, 0.1);
+        }
+    </style>
+    <div class="reportContainer">
+        <div class="sreport">
+            <div class="sheadCont">
+                <div class="head1">
+                    <div class="slogo">
+                        <img class="img"
+                            src="https://image.similarpng.com/very-thumbnail/2022/01/Medical-health-logo-design-on-transparent-background-PNG.png"
+                            alt="">
+                    </div>
+                    <div class="sheading">
+                        <h1> Medify </h1>
+                    </div>
+                </div>
+
+                <div class="head2">
+                    <h3>24th March 2024</h3>
+                    <h3>
+                        verified by : {{user}}
+                    </h3>
+                </div>
+            </div>
+            <div class="nameContainer" style="margin-top:30px ;">
+                <div class="name" style="width:30%">
+                    <h3>Name : {{patient.name}} </h3>
+                </div>
+                <div class="age" style="width:20%">
+                    <h3> Age : {{patient.age}}</h3>
+                </div>
+                <div class="sex">
+                    <h3>Sex : {{patient.gender}}</h3>
+                </div>
+            </div>
+            <div class="nameContainer">
+                <div class="dummy" style="width:30%">
+                    <h3>Height: {{patient.height}} cm</h3>
+                </div>
+                <div class="dummy" style="width:20%">
+                    <h3>Weight : {{patient.weight}} kg</h3>
+                </div>
+                <div class="dummy">
+                    <h3>BMI : {{patient.bmi}}</h3>
+                </div>
+            </div>
+            <div class="nameContainer">
+                <div class="dummy" style="width:30%">
+                    <h3>Diesease: {{disease}}</h3>
+                </div>
+                <div class="dummy" style="width:20%">
+                    <h3>Blood Group : {{patient.bg}}</h3>
+                </div>
+                <div class="dummy">
+                    <h3>BP : {{patient.bp}} mm Hg</h3>
+                </div>
+            </div>
+            <div class="diseaseDes">
+                <div class="des">
+                    <h3>Disease Description</h3>
+                    <p style="padding-top: 3px;">{{descriptions}}</p>
+                </div>
+
+            </div>
+            <div class="diseaseDes">
+                <div class="des">
+                    <h3>Disease Precaution</h3>
+                    <p style="padding-top: 3px;">
+                        {% for p in precautions %}
+                    <ul>
+                        <li>{{p}}</li>
+                    </ul>
+                    {%endfor%}
+                    </p>
+                </div>
+
+            </div>
+            <div class="diseaseDes">
+                <div class="des">
+                    <h3>Disease Remedy</h3>
+                    <p style="padding-top: 3px;">
+                        {% for r in remedies %}
+                    <ul>
+                        <li>{{r}}</li>
+                    </ul>
+                    {%endfor%}
+                    </p>
+                </div>
+            </div>
+            <div class="diseaseDes">
+                <div class="des">
+                    <h3>Tests</h3>
+                    <p style="padding-top: 3px;">
+                        {% for t in tests %}
+                    <ul>
+                        <li>{{t}}</li>
+                    </ul>
+                    {%endfor%}
+                    </p>
+                </div>
+            </div>
+            <div class="diseaseDes">
+                <div class="des">
+                     {% if doctors%}
+                    <h3>Doctors Nearby </h3>
+                    <ul style="position: relative;
+                    left: 3%;">                    
+                    {% for doctor in doctors%}
+                        <li>
+                            <h4>{{doctor.name}}</h4>
+                            <p>Address -> {{doctor.address}}</p>
+                            <br>
+                        </li>
+                    {%endfor%}
+                    </ul>
+                    {%else%}
+                    <h3>No Doctors found nearby</h3>
+                    {%endif%}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
